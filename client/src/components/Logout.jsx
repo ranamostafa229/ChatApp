@@ -32,7 +32,6 @@ const Button = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0.5rem;
-  /* border: 1px solid #cecece; */
   cursor: pointer;
   transition: 0.3s ease-in-out;
   &:hover {

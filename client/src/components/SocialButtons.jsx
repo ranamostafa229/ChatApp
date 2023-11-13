@@ -24,8 +24,6 @@ const SocialButtons = () => {
         ? userData.user.email
         : userData.user.providerData[0].email;
 
-      // ? userData.user?.email
-      // : `${userData.user?.displayName.replace(" ", "")}@facebook.com`;
       const { data } = await axios.post(firebaseLoginRoute, { email });
       if (data.status) {
         localStorage.setItem("userChat", JSON.stringify(data.user));

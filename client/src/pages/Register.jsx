@@ -54,7 +54,6 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (handleValidation()) {
-      console.log(registerRoute);
       const { password, email, username } = values;
       const { data } = await axios.post(registerRoute, {
         username,
@@ -156,7 +155,6 @@ const FormContainer = styled.div`
   background-color: #f5f6fa;
   .logo {
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
     justify-content: center;
     gap: 1rem;
@@ -165,7 +163,6 @@ const FormContainer = styled.div`
     }
     h1 {
       color: #999999;
-      /* text-transform: uppercase; */
     }
   }
   form {
@@ -174,7 +171,6 @@ const FormContainer = styled.div`
     gap: 1rem;
     background-color: white;
     padding: 3rem 5rem;
-    /* margin: 0 1rem; */
     border-radius: 1rem;
     .infoInput {
       display: flex;

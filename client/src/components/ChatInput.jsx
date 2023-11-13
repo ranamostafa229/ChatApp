@@ -44,18 +44,13 @@ const ChatInput = ({ handleSendMsg }) => {
           onChange={(e) => setMsg(e.target.value)}
         />
 
-        <button className="submit">
-          {/* <IoMdSend /> */}
-          Send
-        </button>
+        <button className="submit">Send</button>
       </form>
     </Container>
   );
 };
 
 const Container = styled.div`
-  /* display: grid;
-  grid-template-columns: 5% 95%; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -95,12 +90,10 @@ const Container = styled.div`
     display: flex;
     border-radius: 0.5rem;
     align-items: center;
-    /* gap: 4rem; */
     gap: 1rem;
     background-color: white;
     input {
       width: 90%;
-      /* height: 60%; */
       background-color: transparent;
       color: #999999;
       border: none;

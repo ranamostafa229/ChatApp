@@ -23,10 +23,9 @@ const ChatHeader = ({ currentChat, open }) => {
 const Container = styled.div`
   .chatHeader {
     display: flex;
-    /* justify-content: space-between; */
     align-items: center;
     padding: 0 2rem;
-    width: max-content;
+    width: fit-content;
     visibility: visible;
 
     .userDetails {

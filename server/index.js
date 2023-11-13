@@ -20,6 +20,8 @@ mongoose
 
 const server = app.listen(process.env.PORT, () => {
   console.log(`server started on port ${process.env.PORT}`);
+  // const { version } = require("node:process");
+  //  console.log(`Version: ${version}`);
 });
 
 const io = socket(server, {

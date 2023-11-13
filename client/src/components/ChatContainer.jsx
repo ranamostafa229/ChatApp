@@ -66,14 +66,11 @@ const ChatContainer = ({ currentChat, currentUser, socket }) => {
                   message.fromSelf ? "sended" : "recieved"
                 }`}
               >
-                {/* ${message.fromSelf ? "shif" : "unshif"} */}
                 <div className={`avatar `}>
                   {!message.fromSelf && (
                     <img
                       src={`data:image/svg+xml;base64,${
                         !message.fromSelf ? currentChat?.avatarImage : ""
-                        //  currentUser?.avatarImage
-                        // : currentChat?.avatarImage
                       }`}
                       alt="avatar"
                     />
@@ -97,7 +94,8 @@ const Container = styled.div`
   grid-template-rows: 88% 12%;
   gap: 0.1rem;
   overflow: hidden;
-  height: 90vh;
+  height: calc(100vh - 50px);
+
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     grid-template-rows: 85% 15%;
   }
@@ -109,6 +107,7 @@ const Container = styled.div`
     gap: 1rem;
     padding: 1rem 2rem;
     overflow: auto;
+
     &::-webkit-scrollbar {
       width: 0.3rem;
       &-thumb {

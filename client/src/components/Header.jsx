@@ -12,14 +12,16 @@ const Header = ({ currentUser, currentChat, open, setOpen }) => {
           <BsArrowLeft
             onClick={() => setOpen((prev) => !prev)}
             className={`menuIcon ${open ? "open" : ""}`}
+            size={"2rem"}
           />
         ) : (
           <MdOutlineMenuOpen
             className={`menuIcon ${open ? "open" : ""}`}
             onClick={() => setOpen((prev) => !prev)}
+            size={"2rem"}
           />
         )}
-        {currentChat?.avatarImage && (
+        {currentChat?.avatarImage && !open && (
           <ChatHeader currentChat={currentChat} open={open} />
         )}
         <div className="rightSide">
@@ -40,26 +42,30 @@ const Header = ({ currentUser, currentChat, open, setOpen }) => {
 const Container = styled.div`
   display: flex;
   background-color: white;
-  width: 100%;
   height: 3.9rem;
   border-bottom: 1px solid #efefef;
-
+  justify-content: center;
   @media only screen and (min-width: 768px) {
     .menuIcon {
-      visibility: hidden;
+      display: none;
     }
   }
   @media only screen and (max-width: 600px) {
+    min-width: 85vw;
+
     .menuIcon {
       color: #767b91;
       font-size: 2rem;
       transition: 0.25s ease;
       visibility: visible;
       padding-top: 7px;
-      margin-left: 1rem;
+      margin-left: 0.5rem;
       &:active {
         transform: rotate(180deg);
       }
+    }
+    .content {
+      width: 90vw;
     }
   }
 
@@ -67,14 +73,13 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 90vw;
   }
 
   align-items: center;
   .rightSide {
     display: flex;
     justify-content: end;
-    width: 100%;
     align-items: center;
     gap: 1rem;
     padding: 0.5rem;
@@ -84,7 +89,6 @@ const Container = styled.div`
       height: 45px;
       border-radius: 50%;
       border: 1px solid #57eaae;
-      /* border: 1px solid #cecece; */
       display: flex;
       align-items: center;
       justify-content: center;

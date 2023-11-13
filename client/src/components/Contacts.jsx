@@ -46,15 +46,9 @@ const Contacts = ({ contacts, handleChatChange, open }) => {
 };
 
 const Container = styled.div`
-  /* display: grid;
-  grid-template-rows: 7.5% 87.5% 5%; */
   display: flex;
   flex-direction: column;
-
-  /* height: 85vh;
-  width: 85vw; */
   height: 100vh;
-  /* width: 100vw; */
   overflow: hidden;
   background-color: white;
   .open {
@@ -82,7 +76,6 @@ const Container = styled.div`
     overflow: hidden;
     gap: 0.2rem;
 
-    /* padding-top: 0.6rem; */
     &::-webkit-scrollbar {
       width: 0.3rem;
       &-thumb {

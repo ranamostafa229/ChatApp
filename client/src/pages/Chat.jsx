@@ -86,11 +86,8 @@ const Chat = () => {
 
 const Container = styled.div`
   display: grid;
-  /* grid-template-columns: 5% 95%; */
   grid-template-columns: 8% 92%;
   background-color: white;
-  height: 100vh;
-  width: 100vw;
   justify-content: center;
   align-items: center;
   @media only screen and (max-width: 600px) {
@@ -100,10 +97,11 @@ const Container = styled.div`
 
   .container {
     background-color: #f5f5f5;
-    /* height: 85vh; */
     height: 100vh;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
+    max-width: 100vw;
 
     @media screen and (min-width: 720px) and (max-width: 1080px) {
       grid-template-columns: 40% 65%;
