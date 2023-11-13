@@ -47,7 +47,7 @@ const Container = styled.div`
       }
     }
     @media only screen and (max-width: 600px) {
-      visibility: hidden;
+      display: none;
     }
   }
 `;

@@ -18,7 +18,7 @@ const Header = ({ currentUser, currentChat, open, setOpen }) => {
           <MdOutlineMenuOpen
             className={`menuIcon `}
             onClick={() => setOpen((prev) => !prev)}
-            size={"3.2rem"}
+            size={"1.9rem"}
           />
         )}
         {currentChat?.avatarImage && !open && (
