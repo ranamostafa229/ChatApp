@@ -49,6 +49,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
+
   overflow: hidden;
   background-color: white;
   .open {
@@ -85,7 +86,6 @@ const Container = styled.div`
       }
     }
     .contact {
-      /* background-color: #ededed; */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -96,7 +96,6 @@ const Container = styled.div`
       border-radius: 0.2rem;
       padding: 0.4rem;
       display: flex;
-      /* gap: 1rem; */
       align-items: center;
       transition: 0.5s ease-in-out;
       text-transform: capitalize;

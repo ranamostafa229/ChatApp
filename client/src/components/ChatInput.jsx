@@ -32,6 +32,7 @@ const ChatInput = ({ handleSendMsg }) => {
             <BsEmojiSmileFill onClick={handleEmojiPicker} />
             {showEmojiPicker && (
               <Picker
+                width={"fit-content"}
                 onEmojiClick={(emoji, event) => handleEmojiClick(event, emoji)}
               />
             )}

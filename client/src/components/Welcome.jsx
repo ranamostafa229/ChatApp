@@ -25,6 +25,7 @@ const Container = styled.div`
   }
   h1 {
     text-transform: capitalize;
+    text-align: center;
   }
   span {
     color: #16d991;

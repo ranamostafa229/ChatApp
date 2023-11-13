@@ -11,19 +11,20 @@ const Header = ({ currentUser, currentChat, open, setOpen }) => {
         {open ? (
           <BsArrowLeft
             onClick={() => setOpen((prev) => !prev)}
-            className={`menuIcon ${open ? "open" : ""}`}
-            size={"2rem"}
+            className={`menuIcon `}
+            size={"1.9rem"}
           />
         ) : (
           <MdOutlineMenuOpen
-            className={`menuIcon ${open ? "open" : ""}`}
+            className={`menuIcon `}
             onClick={() => setOpen((prev) => !prev)}
-            size={"2rem"}
+            size={"3.2rem"}
           />
         )}
         {currentChat?.avatarImage && !open && (
           <ChatHeader currentChat={currentChat} open={open} />
         )}
+
         <div className="rightSide">
           <Logout />
           {currentUser?.avatarImage && (
@@ -45,30 +46,7 @@ const Container = styled.div`
   height: 3.9rem;
   border-bottom: 1px solid #efefef;
   justify-content: center;
-  @media only screen and (min-width: 768px) {
-    .menuIcon {
-      display: none;
-    }
-  }
-  @media only screen and (max-width: 600px) {
-    min-width: 85vw;
-
-    .menuIcon {
-      color: #767b91;
-      font-size: 2rem;
-      transition: 0.25s ease;
-      visibility: visible;
-      padding-top: 7px;
-      margin-left: 0.5rem;
-      &:active {
-        transform: rotate(180deg);
-      }
-    }
-    .content {
-      width: 90vw;
-    }
-  }
-
+  align-items: center;
   .content {
     display: flex;
     justify-content: space-between;
@@ -76,14 +54,13 @@ const Container = styled.div`
     width: 90vw;
   }
 
-  align-items: center;
   .rightSide {
     display: flex;
     justify-content: end;
     align-items: center;
     gap: 1rem;
     padding: 0.5rem;
-
+    width: 100vw;
     .avatar {
       width: 45px;
       height: 45px;
@@ -95,6 +72,28 @@ const Container = styled.div`
       img {
         height: 2.2rem;
       }
+    }
+  }
+  @media only screen and (min-width: 768px) {
+    .menuIcon {
+      display: none;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    min-width: 85vw;
+
+    .menuIcon {
+      color: #767b91;
+      transition: 0.25s ease;
+      visibility: visible;
+      padding-top: 7px;
+      margin-left: 0.5rem;
+      &:active {
+        transform: rotate(180deg);
+      }
+    }
+    .content {
+      width: 90vw;
     }
   }
 `;

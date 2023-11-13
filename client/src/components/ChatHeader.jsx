@@ -25,9 +25,8 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     padding: 0 2rem;
-    width: fit-content;
+    width: max-content;
     visibility: visible;
-
     .userDetails {
       display: flex;
       align-items: center;
