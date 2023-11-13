@@ -8,7 +8,6 @@ module.exports.addMessage = async (req, res, next) => {
       users: [from, to],
       sender: from,
     });
-    console.log(data);
     if (data) {
       return res.json({ msg: "message added successfully" });
     } else {
@@ -32,7 +31,6 @@ module.exports.getAllMessages = async (req, res, next) => {
         message: msg.message.text,
       };
     });
-    // console.log(projectedMessages);
     res.json(projectedMessages);
   } catch (error) {
     next(error);
