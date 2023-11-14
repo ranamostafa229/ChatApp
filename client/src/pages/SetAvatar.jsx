@@ -132,8 +132,8 @@ const Container = styled.div`
   align-items: center;
   gap: 3rem;
   height: 100vh;
-  width: 100vw;
-
+  overflow: auto;
+  /* overflow: auto; */
   .loader {
     max-inline-size: 100%;
     width: 20%;
@@ -146,8 +146,10 @@ const Container = styled.div`
   }
   .avatars {
     display: flex;
-    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
+    gap: 2rem;
     .avatar {
       border: 0.4rem solid transparent;
       padding: 0.4rem;
@@ -166,10 +168,9 @@ const Container = styled.div`
     }
   }
   .changeBtn {
-    /* background-color: #57eaae; */
     background-color: white;
     color: #57eaae;
-    padding: 1rem 2rem;
+    /* padding: 1rem 2rem; */
     border: 1px solid #57eaae;
     font-weight: bold;
     cursor: pointer;
@@ -211,6 +212,23 @@ const Container = styled.div`
     text-transform: capitalize;
     &:hover {
       background-color: #16d991;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    .titleContainer {
+      h1 {
+        font-size: x-large;
+        text-align: center;
+      }
+    }
+    .avatar {
+      .img {
+        height: 4rem;
+      }
+    }
+    .changeBtn {
+      width: 95px;
+      height: 95px;
     }
   }
 `;
