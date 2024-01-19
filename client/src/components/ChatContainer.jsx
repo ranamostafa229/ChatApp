@@ -125,6 +125,7 @@ const Container = styled.div`
         display: flex;
         flex-direction: column;
         padding-bottom: 2rem;
+
         img {
           height: 2rem;
         }
@@ -139,12 +140,15 @@ const Container = styled.div`
 
     .sended {
       justify-content: flex-end;
+      padding-bottom: 10px;
       .content {
         background-color: white;
       }
     }
     .recieved {
       justify-content: flex-start;
+      padding-bottom: 10px;
+
       .content {
         background-color: #ebebeb;
       }
