@@ -42,6 +42,3 @@ AVATARAPIKEY = your_api_key //in client folder
 
 You can view a live demo of the app here: [https://connectmeapp.netlify.app/](https://connectmeapp.netlify.app/)
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
