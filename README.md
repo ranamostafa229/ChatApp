@@ -1,18 +1,15 @@
-Sure, I can try to generate a more complete readme file for this github project. Here is what I came up with:
-
 # ChatApp
 
 ChatApp is a MERN chat application that allows users to connect with each other in real time using Socket.IO.
 
 ## Features
 
-- User authentication and authorization using JWT and bcrypt
-- User profile with avatar, status, and bio
-- User search and friend request system
-- Real-time chat with text, emoji, and image support
-- Chat rooms with multiple participants and typing indicators
-- Notifications for new messages and friend requests
-- Responsive design and dark mode
+- User authentication and authorization using bcrypt
+- Google or Facebook authentication Option
+- User profile with avatar
+- Real-time chat with text, and emoji support
+- Chat rooms with multiple participants
+- Responsive design
 
 ## Technologies
 
@@ -20,8 +17,8 @@ ChatApp is a MERN chat application that allows users to connect with each other 
 - Node.js and Express for the back-end
 - MongoDB and Mongoose for the database
 - Socket.IO for real-time communication
-- Bootstrap and React-Bootstrap for styling
-- Cloudinary for image hosting
+- Styled-components for styling
+- Firebase for authentication
 
 ## Installation
 
@@ -34,7 +31,6 @@ To run this project locally, you need to have Node.js and MongoDB installed on y
 ```
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
 CLOUD_NAME=your_cloudinary_cloud_name
 API_KEY=your_cloudinary_api_key
 API_SECRET=your_cloudinary_api_secret
