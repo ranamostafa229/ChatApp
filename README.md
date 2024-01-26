@@ -42,13 +42,6 @@ AVATARAPIKEY = your_api_key //in client folder
 
 You can view a live demo of the app here: [https://connectmeapp.netlify.app/](https://connectmeapp.netlify.app/)
 
-You can use the following credentials to log in or create your own account:
-
-```
-name: test
-Password: test1234
-```
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
