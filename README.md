@@ -1,12 +1,12 @@
-# ChatApp
+# Chat App Using MERN Stack
 
-ChatApp is a MERN chat application that allows users to connect with each other in real time using Socket.IO.
+ConnectMe is a MERN chat application that allows users to connect with each other in real time using Socket.IO.
 
 ## Features
 
 - User authentication and authorization using bcrypt
 - Google or Facebook authentication Option
-- User profile with avatar
+- User profile with avatar using this api  <a href='https://api.multiavatar.com/'> https://api.multiavatar.com/</a>
 - Real-time chat with text, and emoji support
 - Chat rooms with multiple participants
 - Responsive design
@@ -30,10 +30,9 @@ To run this project locally, you need to have Node.js and MongoDB installed on y
 
 ```
 PORT=5000
-MONGO_URI=your_mongodb_connection_string
-CLOUD_NAME=your_cloudinary_cloud_name
-API_KEY=your_cloudinary_api_key
-API_SECRET=your_cloudinary_api_secret
+MONGO_URI = your_mongodb_connection_string
+ORIGIN ='http://localhost:3000'
+AVATARAPIKEY = your_api_key //in client folder
 ```
 
 4. Run `npm run dev` to start the development server
