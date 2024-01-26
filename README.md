@@ -45,8 +45,8 @@ You can view a live demo of the app here: [https://connectmeapp.netlify.app/](ht
 You can use the following credentials to log in or create your own account:
 
 ```
-Email: test@test.com
-Password: test123
+name: test
+Password: test1234
 ```
 
 ## License
