@@ -1,77 +1,36 @@
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
-import axios from "axios";
-import { getAllMessagesRoute, sendMessageRoute } from "../utils/ApiRoutes";
-import { useEffect, useRef, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import useMessages from "../hooks/useMessages";
+import useScrollToBottom from "../hooks/useScrollToBottom";
 
 const ChatContainer = ({ currentChat, currentUser, socket }) => {
-  const [messages, setMessages] = useState([]);
-  const [arrivalMsg, setArrivalMsg] = useState(null);
-
-  const scrollRef = useRef();
+  const { messages, sendMessage } = useMessages({
+    currentChat,
+    currentUser,
+    socket,
+  });
+  const scrollRef = useScrollToBottom();
 
   const handleSendMsg = async (msg) => {
-    await axios.post(sendMessageRoute, {
-      from: currentUser?._id,
-      to: currentChat?._id,
-      message: msg,
-    });
-    socket.current.emit("send-msg", {
-      to: currentChat._id,
-      from: currentUser._id,
-      message: msg,
-    });
-    const msgs = [...messages];
-    msgs.push({ fromSelf: true, message: msg });
-    setMessages(msgs);
+    await sendMessage(msg);
   };
-  const getMessages = async () => {
-    if (currentChat) {
-      const response = await axios.post(getAllMessagesRoute, {
-        from: currentUser?._id,
-        to: currentChat?._id,
-      });
-      setMessages(response.data);
-    }
-  };
-  useEffect(() => {
-    getMessages();
-  }, [currentChat]);
-
-  useEffect(() => {
-    if (socket.current) {
-      socket.current.on("msg-recieve", (msg) => {
-        setArrivalMsg({ fromSelf: false, message: msg });
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    arrivalMsg && setMessages((prev) => [...prev, arrivalMsg]);
-  }, [arrivalMsg]);
-
-  useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
-  }, [messages]);
 
   return (
     <Container>
       <div className="chatMessages">
         {messages.map((message) => {
           return (
-            <div ref={scrollRef} key={uuidv4()}>
+            <div
+              ref={scrollRef}
+              key={`${message.fromSelf}-${message.message}-${Math.random()}`}
+            >
               <div
-                className={`message ${
-                  message.fromSelf ? "sended" : "recieved"
-                }`}
+                className={`message ${message.fromSelf ? "sended" : "recieved"}`}
               >
                 <div className={`avatar `}>
                   {!message.fromSelf && (
                     <img
-                      src={`data:image/svg+xml;base64,${
-                        !message.fromSelf ? currentChat?.avatarImage : ""
-                      }`}
+                      src={`data:image/svg+xml;base64,${currentChat?.avatarImage}`}
                       alt="avatar"
                     />
                   )}

@@ -1,48 +1,17 @@
 import { BsFacebook, BsGoogle } from "react-icons/bs";
 import styled from "styled-components";
-import {
-  FacebookAuthProvider,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
-import { firebaseAuth } from "../utils/firebaseConfig";
-import axios from "axios";
-import { firebaseLoginRoute } from "../utils/ApiRoutes";
-import { useNavigate } from "react-router-dom";
+import useSocialAuth from "../hooks/useSocialAuth";
 
 const SocialButtons = () => {
-  const navigate = useNavigate();
-  const providers = {
-    google: new GoogleAuthProvider(),
-    facebook: new FacebookAuthProvider(),
-  };
-  const firebaseLogin = async (loginType) => {
-    try {
-      const provider = providers[loginType];
-      const userData = await signInWithPopup(firebaseAuth, provider);
-      const email = userData.user.email
-        ? userData.user.email
-        : userData.user.providerData[0].email;
-
-      const { data } = await axios.post(firebaseLoginRoute, { email });
-      if (data.status) {
-        localStorage.setItem("userChat", JSON.stringify(data.user));
-        navigate("/");
-      } else {
-        navigate("/setusername");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { loginWithProvider } = useSocialAuth();
 
   return (
     <Container>
-      <button type="button" onClick={() => firebaseLogin("google")}>
+      <button type="button" onClick={() => loginWithProvider("google")}>
         <BsGoogle />
         Google
       </button>
-      <button type="button" onClick={() => firebaseLogin("facebook")}>
+      <button type="button" onClick={() => loginWithProvider("facebook")}>
         <BsFacebook />
         Facebook
       </button>

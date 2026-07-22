@@ -1,18 +1,14 @@
 import styled from "styled-components";
 import { BiPowerOff } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import { logoutRoute } from "../utils/ApiRoutes";
-import axios from "axios";
+import useAuth from "../hooks/useAuth";
 
 const Logout = () => {
   const navigate = useNavigate();
+  const { logout } = useAuth();
   const handleClick = async () => {
-    const id = await JSON.parse(localStorage.getItem("userChat"))._id;
-    const data = await axios.get(`${logoutRoute}/${id}`);
-    if (data.status === 200) {
-      localStorage.clear();
-      navigate("/login");
-    }
+    await logout();
+    navigate("/login");
   };
 
   return (

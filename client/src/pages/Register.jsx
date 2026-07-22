@@ -7,8 +7,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
-import { registerRoute } from "../utils/ApiRoutes";
+import useAuth from "../hooks/useAuth";
 import SocialButtons from "../components/SocialButtons";
 
 function Register() {
@@ -19,6 +18,7 @@ function Register() {
     confirmPassword: "",
   });
   const navigate = useNavigate();
+  const { register, user } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +36,7 @@ function Register() {
     if (password !== confirmPassword) {
       toast.warn(
         "password and cofirm password should be the same",
-        toastOptions
+        toastOptions,
       );
       return false;
     } else if (username.length < 3) {
@@ -45,7 +45,7 @@ function Register() {
     } else if (password.length < 8) {
       toast.warn(
         "Password should be equal or greater than 8 characters",
-        toastOptions
+        toastOptions,
       );
       return false;
     }
@@ -55,25 +55,22 @@ function Register() {
     e.preventDefault();
     if (handleValidation()) {
       const { password, email, username } = values;
-      const { data } = await axios.post(registerRoute, {
-        username,
-        email,
-        password,
-      });
+      const data = await register({ username, email, password });
       if (data.status === false) {
         toast.error(data.msg, toastOptions);
+        return;
       }
       if (data.status === true) {
-        localStorage.setItem("userChat", JSON.stringify(data.user));
         navigate("/");
       }
     }
   };
+
   useEffect(() => {
-    if (localStorage.getItem("userChat")) {
+    if (user) {
       navigate("/");
     }
-  }, []);
+  }, [user, navigate]);
   return (
     <>
       <FormContainer>

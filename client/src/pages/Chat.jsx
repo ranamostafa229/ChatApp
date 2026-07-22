@@ -1,81 +1,57 @@
-import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { allUsersRoute, host } from "../utils/ApiRoutes";
 import Contacts from "../components/Contacts";
 import Welcome from "../components/Welcome";
 import ChatContainer from "../components/ChatContainer";
 import Header from "../components/Header";
-import { io } from "socket.io-client";
+import useAuth from "../hooks/useAuth";
+import useContacts from "../hooks/useContacts";
+import useSocket from "../hooks/useSocket";
 
 const Chat = () => {
-  const [contacts, setContacts] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
   const [currentChat, setCurrentChat] = useState(null);
   const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
-  const socket = useRef();
+  const { user } = useAuth();
+  const contacts = useContacts(user);
+  const socket = useSocket(user?._id);
 
-  const getCurrentUser = async () => {
-    if (!localStorage.getItem("userChat")) {
+  useEffect(() => {
+    if (!user) {
       navigate("/login");
-    } else {
-      setCurrentUser(await JSON.parse(localStorage.getItem("userChat")));
+    } else if (!user.isAvatarImageSet) {
+      navigate("/setAvatar");
     }
-  };
+  }, [user, navigate]);
 
-  const getContacts = async () => {
-    if (currentUser) {
-      if (currentUser.isAvatarImageSet) {
-        const { data } = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-        setContacts(data);
-      } else {
-        navigate("/setAvatar");
-      }
-    }
-  };
   const handleChatChange = (contact) => {
     setCurrentChat(contact);
   };
 
-  useEffect(() => {
-    getCurrentUser();
-  }, []);
-
-  useEffect(() => {
-    getContacts();
-  }, [currentUser]);
-
-  useEffect(() => {
-    if (currentUser) {
-      socket.current = io(host);
-      socket.current.emit("add-user", currentUser._id);
-    }
-  }, [currentUser]);
   return (
     <Container display={open.toString()}>
       <Contacts
         contacts={contacts}
-        currentUser={currentUser}
+        currentUser={user}
         handleChatChange={handleChatChange}
         open={open}
         setOpen={setOpen}
       />
       <div className="container">
         <Header
-          currentUser={currentUser}
+          currentUser={user}
           currentChat={currentChat}
           open={open}
           setOpen={setOpen}
         />
         {currentChat === null ? (
-          <Welcome currentUser={currentUser} />
+          <Welcome currentUser={user} />
         ) : (
           <ChatContainer
             currentChat={currentChat}
-            currentUser={currentUser}
+            currentUser={user}
             socket={socket}
           />
         )}

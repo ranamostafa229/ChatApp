@@ -74,7 +74,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden;
+    overflow: scroll;
     gap: 0.2rem;
 
     &::-webkit-scrollbar {

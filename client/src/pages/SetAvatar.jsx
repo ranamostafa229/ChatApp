@@ -3,16 +3,13 @@ import loader from "../assets/aloader.gif";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
-import { Buffer } from "buffer";
-import axios from "axios";
-import { setAvatarRoute } from "../utils/ApiRoutes";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 import { TfiReload } from "react-icons/tfi";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import multiavatar from "@multiavatar/multiavatar";
 
 function SetAvatar() {
-  const api = `https://api.multiavatar.com/4645646`;
-
   const [avatars, setAvatars] = useState([]);
   const [selectedAvatar, setSelectedAvatar] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,37 +23,31 @@ function SetAvatar() {
     theme: "light",
   };
 
+  const { user, updateAvatar } = useAuth();
+
   const setProfilePicture = async () => {
     if (selectedAvatar === undefined) {
       toast.error("Please select an avatar", toastOptions);
-    } else {
-      const user = await JSON.parse(localStorage.getItem("userChat"));
-      const { data } = await axios.post(`${setAvatarRoute}/${user._id}`, {
-        image: avatars[selectedAvatar],
-      });
+      return;
+    }
 
-      if (data.isSet) {
-        user.isAvatarImageSet = true;
-        user.avatarImage = data.image;
-        localStorage.setItem("userChat", JSON.stringify(user));
-        navigate("/");
-      } else {
-        console.log(data.image);
-        toast.error("Failed to set avatar,Please try again", toastOptions);
-      }
+    const data = await updateAvatar(avatars[selectedAvatar]);
+    if (data?.isSet) {
+      navigate("/");
+    } else {
+      toast.error("Failed to set avatar, please try again", toastOptions);
     }
   };
 
   const setImage = async () => {
     const data = [];
     for (let i = 0; i < 4; i++) {
-      const image = await axios.get(
-        `${api}/${Math.round(Math.random() * 1000)}?apikey=${
-          process.env.AVATARAPIKEY
-        }`
-      );
-      const buffer = new Buffer.from(image.data);
-      data.push(buffer.toString("base64"));
+      // generate a random avatarID
+      const svgCode = multiavatar(Math.round(Math.random() * 1000)).toString();
+      // convert SVG string to base64
+      const base64 = btoa(svgCode);
+
+      data.push(base64);
     }
     setAvatars(data);
     setIsLoading(false);
@@ -73,10 +64,10 @@ function SetAvatar() {
   }, []);
 
   useEffect(() => {
-    if (!localStorage.getItem("userChat")) {
+    if (!user) {
       navigate("/register");
     }
-  }, []);
+  }, [user, navigate]);
 
   return (
     <>

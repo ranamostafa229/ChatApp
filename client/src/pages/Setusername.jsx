@@ -4,11 +4,12 @@ import { styled } from "styled-components";
 import { FiUser } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
-import { checkUsernameRoute, registerRoute } from "../utils/ApiRoutes";
+import apiClient from "../api/apiClient";
+import { checkUsernameRoute } from "../utils/ApiRoutes";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebaseConfig";
 import { debounce } from "../utils/Debouncing";
+import useAuth from "../hooks/useAuth";
 
 export default function Setusername() {
   const [values, setValues] = useState("");
@@ -17,17 +18,21 @@ export default function Setusername() {
   const [userNameStatus, setUserNameStatus] = useState(undefined);
 
   const navigate = useNavigate();
+  const { register, user } = useAuth();
 
-  onAuthStateChanged(firebaseAuth, (userData) => {
-    console.log(userData);
-    if (!userData) {
-      navigate("/login");
-    } else {
-      setEmail(
-        userData.email ? userData.email : userData.providerData[0].email
-      );
-    }
-  });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(firebaseAuth, (userData) => {
+      if (!userData) {
+        navigate("/login");
+      } else {
+        setEmail(
+          userData.email ? userData.email : userData.providerData[0].email,
+        );
+      }
+    });
+
+    return () => unsubscribe();
+  }, [navigate]);
 
   const toastOptions = {
     position: "bottom-right",
@@ -46,8 +51,7 @@ export default function Setusername() {
 
   const checkUsername = async (username) => {
     if (username.length > 3) {
-      const { data } = await axios.post(checkUsernameRoute, { username });
-      console.log(data);
+      const { data } = await apiClient.post(checkUsernameRoute, { username });
       setUserNameStatus(data.status);
       setLabel(data.msg);
       setValues(username);
@@ -58,25 +62,26 @@ export default function Setusername() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (handleValidation()) {
-      const { data } = await axios.post(registerRoute, {
+      const data = await register({
         username: values,
         email,
         password: (Math.random() + 1).toString(20).substring(1),
       });
       if (data.status === false) {
         toast.error(data.msg, toastOptions);
+        return;
       }
       if (data.status === true) {
-        localStorage.setItem("userChat", JSON.stringify(data.user));
         navigate("/");
       }
     }
   };
+
   useEffect(() => {
-    if (localStorage.getItem("userChat")) {
+    if (user) {
       navigate("/");
     }
-  }, []);
+  }, [user, navigate]);
 
   return (
     <>
@@ -90,8 +95,8 @@ export default function Setusername() {
                   userNameStatus
                     ? "success"
                     : userNameStatus !== undefined
-                    ? "danger"
-                    : ""
+                      ? "danger"
+                      : ""
                 }`}
                 type="text"
                 placeholder="username"
@@ -107,8 +112,8 @@ export default function Setusername() {
                 userNameStatus
                   ? "success"
                   : userNameStatus !== undefined
-                  ? "danger"
-                  : ""
+                    ? "danger"
+                    : ""
               }`}
             >
               {label}
