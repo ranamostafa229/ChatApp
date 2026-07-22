@@ -76,6 +76,7 @@ const Container = styled.div`
     align-items: center;
     overflow: hidden;
     gap: 0.2rem;
+    overflow-y: scroll;
 
     &::-webkit-scrollbar {
       width: 0.3rem;

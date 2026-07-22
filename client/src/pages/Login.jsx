@@ -28,20 +28,9 @@ function Login() {
     draggable: true,
     theme: "light",
   };
-  // const handleValidation = () => {
-  //   const { username, password } = values;
-  //   if (password === "") {
-  //     toast.warn("password is required", toastOptions);
-  //     return false;
-  //   } else if (username === "") {
-  //     toast.warn("Username is required", toastOptions);
-  //     return false;
-  //   }
-  //   return true;
-  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (handleValidation()) {
     const { password, username } = values;
     const { data } = await axios.post(loginRoute, {
       username,
@@ -54,7 +43,6 @@ function Login() {
       localStorage.setItem("userChat", JSON.stringify(data.user));
       navigate("/");
     }
-    // }
   };
   useEffect(() => {
     if (localStorage.getItem("userChat")) {
